@@ -20,9 +20,9 @@ import {
   XCircle,
   Trophy,
   ArrowLeft,
-  Lightbulb,
   Building,
   Award,
+  Share2,
 } from "lucide-react";
 import ResultsHeader from "@/components/results-header";
 import CollegeCard from "@/components/college-card";
@@ -34,6 +34,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type PredictionResult = {
   predicted_cutoff: number;
@@ -75,6 +76,21 @@ export default function ResultsPage() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // For mobile responsiveness
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if we're on mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const fetchPrediction = async () => {
@@ -181,15 +197,51 @@ export default function ResultsPage() {
     },
   };
 
+  // Function to share via WhatsApp
+  const shareViaWhatsApp = () => {
+    if (!predictionResult) return;
+
+    const text = `Check my TNEA college prediction for ${predictionResult.selected_college} - ${predictionResult.selected_department}. My cutoff: ${predictionResult.your_cutoff}, Predicted cutoff: ${predictionResult.predicted_cutoff}`;
+    const url = window.location.href;
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
+      "_blank"
+    );
+  };
+
+  // Function for general sharing
+  const shareResults = () => {
+    if (!predictionResult) return;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "TNEA Counselling College Predictor",
+          text: `Check my college prediction for ${predictionResult.selected_college} - ${predictionResult.selected_department}`,
+          url: window.location.href,
+        })
+        .catch((err) => console.error("Error sharing:", err));
+    }
+  };
+
+  const pages = ["overview", "departments", "top"];
+  const [pageIndex, setPageIndex] = useState(0);
+
+  // Update setActiveTab to also update pageIndex
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setPageIndex(pages.indexOf(value));
+  };
+
   if (errorMessage) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.5 }}
-          className="text-center p-6 bg-white rounded-lg shadow-lg border border-red-200"
+          className="text-center p-6 bg-white rounded-lg shadow-lg border border-red-200 max-w-md w-full"
         >
           <XCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-red-700">Error</h2>
@@ -202,10 +254,13 @@ export default function ResultsPage() {
 
   if (isLoading || !predictionResult) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
         <div className="text-center">
           <motion.div
-            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+            }}
             transition={{
               rotate: {
                 duration: 1.5,
@@ -385,224 +440,462 @@ export default function ResultsPage() {
         </motion.div>
 
         <motion.div className="mt-8" variants={itemVariants}>
-          <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="w-full"
-          >
-            <div className="relative">
-              <motion.div
-                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-70 blur-sm"
-                animate={{ opacity: [0.5, 0.7, 0.5] }}
-                transition={{
-                  duration: 3,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
-              <TabsList className="relative grid w-full grid-cols-3 mb-8 p-1 bg-white/80 backdrop-blur-sm">
-                <TabsTrigger
-                  value="overview"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-600 data-[state=active]:text-white"
-                >
-                  <Building className="h-4 w-4 mr-2" />
-                  College Options
-                </TabsTrigger>
-                <TabsTrigger
-                  value="departments"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-600 data-[state=active]:text-white"
-                >
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Department Options
-                </TabsTrigger>
-                <TabsTrigger
-                  value="top"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-600 data-[state=active]:text-white"
-                >
-                  <Award className="h-4 w-4 mr-2" />
-                  Top Colleges
-                </TabsTrigger>
-              </TabsList>
+          {isMobile ? (
+            // Mobile view with pagination
+            <div className="w-full">
+              {/* Define pages array with titles */}
+              {(() => {
+                const pages = [
+                  { id: "overview", title: "College Options" },
+                  { id: "departments", title: "Department Options" },
+                  { id: "top", title: "Top Colleges" },
+                ];
+                const currentPageIndex = pages.findIndex(
+                  (page) => page.id === activeTab
+                );
+
+                return (
+                  <>
+                    <div className="relative">
+                      {/* Pagination Controls */}
+                      <div className="flex justify-between items-center mb-6">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const prevIndex = Math.max(currentPageIndex - 1, 0);
+                            setActiveTab(pages[prevIndex].id);
+                          }}
+                          disabled={currentPageIndex === 0}
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <span className="text-sm font-medium text-center flex-1">
+                          {pages[currentPageIndex].title}
+                        </span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const nextIndex = Math.min(
+                              currentPageIndex + 1,
+                              pages.length - 1
+                            );
+                            setActiveTab(pages[nextIndex].id);
+                          }}
+                          disabled={currentPageIndex === pages.length - 1}
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeTab}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {activeTab === "overview" && (
+                          <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                            <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-xl font-bold flex items-center gap-2">
+                                <School className="h-5 w-5 text-blue-600" />
+                                Alternative Departments
+                              </CardTitle>
+                              <CardDescription>
+                                Other departments in{" "}
+                                {predictionResult.selected_college}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-6">
+                                {predictionResult.college_suggestions.length >
+                                0 ? (
+                                  predictionResult.college_suggestions.map(
+                                    (college, index) => (
+                                      <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{
+                                          opacity: 1,
+                                          y: 0,
+                                          transition: { delay: index * 0.1 },
+                                        }}
+                                      >
+                                        <CollegeCard
+                                          rank={index + 1}
+                                          collegeName={college.college_name!}
+                                          departmentName={college.department!}
+                                          cutoff={college.cutoff_bc!}
+                                          isHighlighted={index === 0}
+                                        />
+                                      </motion.div>
+                                    )
+                                  )
+                                ) : (
+                                  <p className="text-gray-500">
+                                    No alternative departments available.
+                                  </p>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+
+                        {activeTab === "departments" && (
+                          <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                            <div className="h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-xl font-bold flex items-center gap-2">
+                                <BookOpen className="h-5 w-5 text-indigo-600" />
+                                Department Options
+                              </CardTitle>
+                              <CardDescription>
+                                {predictionResult.selected_department} in Other
+                                Colleges
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-6">
+                                {predictionResult.department_suggestions
+                                  .length > 0 ? (
+                                  predictionResult.department_suggestions.map(
+                                    (dept, index) => (
+                                      <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{
+                                          opacity: 1,
+                                          y: 0,
+                                          transition: { delay: index * 0.1 },
+                                        }}
+                                      >
+                                        <DepartmentCard
+                                          rank={index + 1}
+                                          collegeName={dept.college_name!}
+                                          departmentName={dept.department!}
+                                          cutoff={dept.cutoff_bc!}
+                                          isHighlighted={index === 0}
+                                        />
+                                      </motion.div>
+                                    )
+                                  )
+                                ) : (
+                                  <p className="text-gray-500">
+                                    No other colleges available for this
+                                    department.
+                                  </p>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+
+                        {activeTab === "top" && (
+                          <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                            <div className="h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-xl font-bold flex items-center gap-2">
+                                <Trophy className="h-5 w-5 text-amber-500" />
+                                Top Colleges
+                              </CardTitle>
+                              <CardDescription>
+                                Best colleges by cutoff
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-6">
+                                {predictionResult.top_colleges.length > 0 ? (
+                                  predictionResult.top_colleges
+                                    .slice(0, 3)
+                                    .map((college, index) => (
+                                      <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{
+                                          opacity: 1,
+                                          y: 0,
+                                          transition: { delay: index * 0.1 },
+                                        }}
+                                      >
+                                        <CollegeCard
+                                          rank={index + 1}
+                                          collegeName={college.college_name!}
+                                          departmentName={college.department!}
+                                          cutoff={college.cutoff_bc!}
+                                          isHighlighted={index === 0}
+                                          isTop={true}
+                                        />
+                                      </motion.div>
+                                    ))
+                                ) : (
+                                  <p className="text-gray-500">
+                                    No top colleges available.
+                                  </p>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        )}
+                      </motion.div>
+                    </AnimatePresence>
+                  </>
+                );
+              })()}
             </div>
+          ) : (
+            // Desktop view with tabs
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
+              <div className="relative">
+                <motion.div
+                  className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-70 blur-sm"
+                  animate={{ opacity: [0.5, 0.7, 0.5] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                />
+                <TabsList className="relative grid w-full grid-cols-3 mb-8 p-1 bg-white/80 backdrop-blur-sm">
+                  <TabsTrigger
+                    value="overview"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-600 data-[state=active]:text-white"
+                  >
+                    <Building className="h-4 w-4 mr-2" />
+                    College Options
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="departments"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-600 data-[state=active]:text-white"
+                  >
+                    <BookOpen className="h-4 w-4 mr-2" />
+                    Department Options
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="top"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-600 data-[state=active]:text-white"
+                  >
+                    <Award className="h-4 w-4 mr-2" />
+                    Top Colleges
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <TabsContent value="overview" className="mt-0">
-                  <Card className="border-0 shadow-lg bg-white overflow-hidden">
-                    <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-bold flex items-center gap-2">
-                        <School className="h-5 w-5 text-blue-600" />
-                        Alternative Departments in{" "}
-                        {predictionResult.selected_college}
-                      </CardTitle>
-                      <CardDescription>
-                        Other departments you can consider in your preferred
-                        college
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {predictionResult.college_suggestions.length > 0 ? (
-                          predictionResult.college_suggestions.map(
-                            (college, index) => (
-                              <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{
-                                  opacity: 1,
-                                  y: 0,
-                                  transition: { delay: index * 0.1 },
-                                }}
-                                whileHover={{
-                                  y: -5,
-                                  transition: { duration: 0.2 },
-                                }}
-                              >
-                                <CollegeCard
-                                  rank={index + 1}
-                                  collegeName={college.college_name!}
-                                  departmentName={college.department!}
-                                  cutoff={college.cutoff_bc!} // Non-null assertion since filtered
-                                  isHighlighted={index === 0}
-                                />
-                              </motion.div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <TabsContent value="overview" className="mt-0">
+                    <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                      <div className="h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-xl font-bold flex items-center gap-2">
+                          <School className="h-5 w-5 text-blue-600" />
+                          Alternative Departments in{" "}
+                          {predictionResult.selected_college}
+                        </CardTitle>
+                        <CardDescription>
+                          Other departments you can consider in your preferred
+                          college
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {predictionResult.college_suggestions.length > 0 ? (
+                            predictionResult.college_suggestions.map(
+                              (college, index) => (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    transition: { delay: index * 0.1 },
+                                  }}
+                                  whileHover={{
+                                    y: -5,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                >
+                                  <CollegeCard
+                                    rank={index + 1}
+                                    collegeName={college.college_name!}
+                                    departmentName={college.department!}
+                                    cutoff={college.cutoff_bc!}
+                                    isHighlighted={index === 0}
+                                  />
+                                </motion.div>
+                              )
                             )
-                          )
-                        ) : (
-                          <p className="text-gray-500">
-                            No alternative departments available.
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                          ) : (
+                            <p className="text-gray-500">
+                              No alternative departments available.
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
 
-                <TabsContent value="departments" className="mt-0">
-                  <Card className="border-0 shadow-lg bg-white overflow-hidden">
-                    <div className="h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-bold flex items-center gap-2">
-                        <BookOpen className="h-5 w-5 text-indigo-600" />
-                        {predictionResult.selected_department} in Other Colleges
-                      </CardTitle>
-                      <CardDescription>
-                        Other colleges offering your preferred department
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {predictionResult.department_suggestions.length > 0 ? (
-                          predictionResult.department_suggestions.map(
-                            (dept, index) => (
-                              <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{
-                                  opacity: 1,
-                                  y: 0,
-                                  transition: { delay: index * 0.1 },
-                                }}
-                                whileHover={{
-                                  y: -5,
-                                  transition: { duration: 0.2 },
-                                }}
-                              >
-                                <DepartmentCard
-                                  rank={index + 1}
-                                  collegeName={dept.college_name!}
-                                  departmentName={dept.department!}
-                                  cutoff={dept.cutoff_bc!} // Non-null assertion since filtered
-                                  isHighlighted={index === 0}
-                                />
-                              </motion.div>
+                  <TabsContent value="departments" className="mt-0">
+                    <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                      <div className="h-1 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-xl font-bold flex items-center gap-2">
+                          <BookOpen className="h-5 w-5 text-indigo-600" />
+                          {predictionResult.selected_department} in Other
+                          Colleges
+                        </CardTitle>
+                        <CardDescription>
+                          Other colleges offering your preferred department
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {predictionResult.department_suggestions.length >
+                          0 ? (
+                            predictionResult.department_suggestions.map(
+                              (dept, index) => (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    transition: { delay: index * 0.1 },
+                                  }}
+                                  whileHover={{
+                                    y: -5,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                >
+                                  <DepartmentCard
+                                    rank={index + 1}
+                                    collegeName={dept.college_name!}
+                                    departmentName={dept.department!}
+                                    cutoff={dept.cutoff_bc!}
+                                    isHighlighted={index === 0}
+                                  />
+                                </motion.div>
+                              )
                             )
-                          )
-                        ) : (
-                          <p className="text-gray-500">
-                            No other colleges available for this department.
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                          ) : (
+                            <p className="text-gray-500">
+                              No other colleges available for this department.
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
 
-                <TabsContent value="top" className="mt-0">
-                  <Card className="border-0 shadow-lg bg-white overflow-hidden">
-                    <div className="h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-xl font-bold flex items-center gap-2">
-                        <Trophy className="h-5 w-5 text-amber-500" />
-                        Top Colleges Overall
-                      </CardTitle>
-                      <CardDescription>
-                        Best colleges based on cutoff scores
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {predictionResult.top_colleges.length > 0 ? (
-                          predictionResult.top_colleges
-                            .slice(0, 3)
-                            .map((college, index) => (
-                              <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{
-                                  opacity: 1,
-                                  y: 0,
-                                  transition: { delay: index * 0.1 },
-                                }}
-                                whileHover={{
-                                  y: -5,
-                                  transition: { duration: 0.2 },
-                                }}
-                              >
-                                <CollegeCard
-                                  rank={index + 1}
-                                  collegeName={college.college_name!}
-                                  departmentName={college.department!}
-                                  cutoff={college.cutoff_bc!} // Non-null assertion since filtered
-                                  isHighlighted={index === 0}
-                                  isTop={true}
-                                />
-                              </motion.div>
-                            ))
-                        ) : (
-                          <p className="text-gray-500">
-                            No top colleges available.
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </motion.div>
-            </AnimatePresence>
-          </Tabs>
+                  <TabsContent value="top" className="mt-0">
+                    <Card className="border-0 shadow-lg bg-white overflow-hidden">
+                      <div className="h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-xl font-bold flex items-center gap-2">
+                          <Trophy className="h-5 w-5 text-amber-500" />
+                          Top Colleges Overall
+                        </CardTitle>
+                        <CardDescription>
+                          Best colleges based on cutoff scores
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {predictionResult.top_colleges.length > 0 ? (
+                            predictionResult.top_colleges
+                              .slice(0, 3)
+                              .map((college, index) => (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    transition: { delay: index * 0.1 },
+                                  }}
+                                  whileHover={{
+                                    y: -5,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                >
+                                  <CollegeCard
+                                    rank={index + 1}
+                                    collegeName={college.college_name!}
+                                    departmentName={college.department!}
+                                    cutoff={college.cutoff_bc!}
+                                    isHighlighted={index === 0}
+                                    isTop={true}
+                                  />
+                                </motion.div>
+                              ))
+                          ) : (
+                            <p className="text-gray-500">
+                              No top colleges available.
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                </motion.div>
+              </AnimatePresence>
+            </Tabs>
+          )}
         </motion.div>
 
         <motion.div
-          className="mt-12 flex justify-center gap-4"
+          className="mt-12 flex flex-col sm:flex-row justify-center gap-4"
           variants={itemVariants}
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
-              className="bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 px-6 py-5 text-base font-medium shadow-md"
+              className="bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 px-6 py-5 text-base font-medium shadow-md w-full sm:w-auto"
               onClick={() => router.push("/")}
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Start New Prediction
             </Button>
           </motion.div>
+
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            {/* WhatsApp Share Button */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
+            >
+              <Button
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-5 text-base font-medium shadow-md w-full"
+                onClick={shareViaWhatsApp}
+              >
+                <div className="flex items-center">
+                  {/* WhatsApp Icon SVG */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5 mr-2 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.652c1.73.943 3.683 1.44 5.7 1.44 6.555 0 11.89-5.335 11.893-11.893 0-3.176-1.24-6.165-3.484-8.413" />
+                  </svg>
+                  <span>Share via WhatsApp</span>
+                </div>
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -612,9 +905,11 @@ export default function ResultsPage() {
           <div className="bg-yellow-100 text-yellow-800 p-3 rounded-md mb-4 inline-block max-w-2xl">
             <p className="text-sm font-medium">
               <strong>Disclaimer:</strong> These predictions are based on
-              historical data and trends and are not guaranteed outcomes. Use
-              this tool as a reference only. Actual results may vary due to
-              multiple factors.
+              historical data and trends and are not guaranteed outcomes. Some
+              results may not provide suggestions due to technical errors, and
+              others may be incorrect. Kindly refer to older data for
+              reconfirmation. Use this tool as a reference only. Actual results
+              may vary due to multiple factors.
             </p>
           </div>
           <p>
@@ -632,6 +927,7 @@ export default function ResultsPage() {
             <a
               href="https://www.linkedin.com/in/nagadeepak61"
               target="_blank"
+              rel="noreferrer"
               className="text-blue-600 font-semibold"
             >
               {" "}
@@ -644,6 +940,7 @@ export default function ResultsPage() {
             <a
               href="https://www.linkedin.com/in/premnath018"
               target="_blank"
+              rel="noreferrer"
               className="text-blue-600 font-semibold"
             >
               {" "}

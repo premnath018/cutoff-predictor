@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,9 +28,13 @@ import {
   School,
   BookOpen,
   ArrowRight,
-  AlertTriangle,
+  GraduationCap,
+  BookMarked,
+  BarChart3,
+  Trophy,
 } from "lucide-react";
 import collegeData from "@/lib/college_data.json";
+import ServiceAgreement from "@/components/service-agreement";
 
 // Combobox component with full-width styling
 function Combobox({
@@ -105,82 +109,6 @@ function Combobox({
   );
 }
 
-// Service Agreement Popup Component
-function ServiceAgreementPopup({ onAgree }: { onAgree: () => void }) {
-  const [timeLeft, setTimeLeft] = React.useState(7); // 7 seconds mandatory wait
-  const [isAgreed, setIsAgreed] = React.useState(false);
-
-  React.useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [timeLeft]);
-
-  const handleAgree = () => {
-    setIsAgreed(true);
-    onAgree();
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-    >
-      <Card className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg border border-yellow-200">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-yellow-700 flex items-center gap-2">
-            <AlertTriangle className="h-6 w-6" />
-            Service Agreement & Disclaimer
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-gray-600">
-            Please read and acknowledge the following before proceeding:
-          </p>
-          <ul className="list-disc pl-5 text-gray-700 space-y-2">
-            <li>
-              These details and predictions are based on historical data and
-              trends and cannot guarantee your actual admission outcome. Use
-              this as a reference only, not a guaranteed result.
-            </li>
-            <li>
-              Cutoff scores may vary due to factors like seat availability,
-              applicant volume, and policy changes not reflected in our data.
-            </li>
-            <li>
-              The accuracy of predictions depends on the information you
-              provide; incorrect or incomplete data may lead to misleading
-              results.
-            </li>
-            <li>
-              We are not affiliated with TNEA or any official admission body;
-              this tool is for informational purposes only.
-            </li>
-          </ul>
-          <div className="flex justify-between items-center mt-6">
-            <p className="text-gray-500">
-              You can agree in {timeLeft} second{timeLeft !== 1 ? "s" : ""}...
-            </p>
-            <Button
-              onClick={handleAgree}
-              disabled={timeLeft > 0}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white"
-            >
-              I Agree
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-}
-
 export default function Home() {
   const router = useRouter();
   const [formData, setFormData] = React.useState({
@@ -189,7 +117,21 @@ export default function Home() {
     caste: "",
     your_cutoff: "",
   });
-  const [showAgreement, setShowAgreement] = React.useState(true);
+  const [showAgreement, setShowAgreement] = React.useState(false);
+
+  // Check if we should show the agreement (once per hour)
+  React.useEffect(() => {
+    const lastShown = localStorage.getItem("agreementLastShown");
+    const currentTime = new Date().getTime();
+
+    if (
+      !lastShown ||
+      currentTime - Number.parseInt(lastShown) > 60 * 60 * 1000
+    ) {
+      // 1 hour
+      setShowAgreement(true);
+    }
+  }, []);
 
   // College options
   const collegeOptions = React.useMemo(
@@ -234,6 +176,7 @@ export default function Home() {
 
   const handleAgree = () => {
     setShowAgreement(false);
+    localStorage.setItem("agreementLastShown", new Date().getTime().toString());
   };
 
   // Animation variants
@@ -251,28 +194,120 @@ export default function Home() {
     },
   };
 
+  const floatingIconVariants = {
+    initial: { y: 0, opacity: 0.7 },
+    animate: {
+      y: [-10, 10, -10],
+      opacity: [0.7, 1, 0.7],
+      transition: {
+        y: { repeat: Number.POSITIVE_INFINITY, duration: 3, ease: "easeInOut" },
+        opacity: {
+          repeat: Number.POSITIVE_INFINITY,
+          duration: 3,
+          ease: "easeInOut",
+        },
+      },
+    },
+  };
+
   return (
     <>
-      {showAgreement && <ServiceAgreementPopup onAgree={handleAgree} />}
-      <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-10 px-4 sm:px-6">
+      <AnimatePresence>
+        {showAgreement && <ServiceAgreement onAgree={handleAgree} />}
+      </AnimatePresence>
+
+      <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-10 px-4 sm:px-6 overflow-hidden">
+        {/* Floating background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-20 left-10 text-blue-300 opacity-20"
+            variants={floatingIconVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <GraduationCap size={80} />
+          </motion.div>
+
+          <motion.div
+            className="absolute top-40 right-20 text-indigo-300 opacity-20"
+            variants={floatingIconVariants}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 0.5 }}
+          >
+            <BookMarked size={60} />
+          </motion.div>
+
+          <motion.div
+            className="absolute bottom-40 left-20 text-purple-300 opacity-20"
+            variants={floatingIconVariants}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 1 }}
+          >
+            <BarChart3 size={70} />
+          </motion.div>
+
+          <motion.div
+            className="absolute bottom-60 right-10 text-pink-300 opacity-20"
+            variants={floatingIconVariants}
+            initial="initial"
+            animate="animate"
+            transition={{ delay: 1.5 }}
+          >
+            <Trophy size={50} />
+          </motion.div>
+        </div>
+
         <motion.div
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto relative z-10"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
           <motion.div className="text-center mb-12" variants={itemVariants}>
-            <h1 className="text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 mb-4">
-              TNEA Cutoff Predictor 2025
-            </h1>
-            <p className="mt-3 text-xl text-gray-600 max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.34, 1.56, 0.64, 1], // Spring-like effect
+              }}
+            >
+              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-600 mb-4">
+                TNEA Counselling College Predictor 2025
+              </h1>
+            </motion.div>
+
+            <motion.p
+              className="mt-3 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
               Find your perfect college match based on your cutoff score and
               preferences
-            </p>
+            </motion.p>
           </motion.div>
 
-          <motion.div className="relative mb-16" variants={itemVariants}>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl transform rotate-1 opacity-10"></div>
+          <motion.div
+            className="relative mb-16"
+            variants={itemVariants}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl transform rotate-1 opacity-10"
+              animate={{
+                rotate: [1, 2, 1],
+                opacity: [0.1, 0.15, 0.1],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
+
             <Card className="border-0 shadow-xl bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden">
               <CardHeader className="pb-2 text-center">
                 <motion.div
@@ -280,7 +315,20 @@ export default function Home() {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                  <Sparkles className="h-8 w-8 text-indigo-500 mx-auto mb-2" />
+                  <motion.div
+                    animate={{
+                      rotate: [0, 10, -10, 10, 0],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Number.POSITIVE_INFINITY,
+                      repeatDelay: 5,
+                    }}
+                    className="inline-block"
+                  >
+                    <Sparkles className="h-8 w-8 text-indigo-500 mx-auto mb-2" />
+                  </motion.div>
                   <CardTitle className="text-2xl font-bold text-gray-800">
                     Enter Your Details
                   </CardTitle>
@@ -288,7 +336,11 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <motion.div className="space-y-2" variants={itemVariants}>
+                  <motion.div
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  >
                     <Label htmlFor="college" className="text-sm font-medium">
                       College Name
                     </Label>
@@ -305,7 +357,11 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  <motion.div className="space-y-2" variants={itemVariants}>
+                  <motion.div
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  >
                     <Label htmlFor="department" className="text-sm font-medium">
                       Department
                     </Label>
@@ -322,7 +378,11 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  <motion.div className="space-y-2" variants={itemVariants}>
+                  <motion.div
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  >
                     <Label htmlFor="caste" className="text-sm font-medium">
                       Category
                     </Label>
@@ -346,7 +406,11 @@ export default function Home() {
                     </div>
                   </motion.div>
 
-                  <motion.div className="space-y-2" variants={itemVariants}>
+                  <motion.div
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  >
                     <Label htmlFor="cutoff" className="text-sm font-medium">
                       Your Cutoff
                     </Label>
@@ -367,7 +431,10 @@ export default function Home() {
 
                   <motion.div
                     variants={itemVariants}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{
+                      scale: 1.03,
+                      boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.2)",
+                    }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <Button
@@ -375,8 +442,15 @@ export default function Home() {
                       className="w-full py-6 text-lg font-medium bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 shadow-lg"
                       disabled={showAgreement} // Disable button until agreed
                     >
-                      <span className="mr-2">Predict My Chances</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <motion.span
+                        className="flex items-center"
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <span className="mr-2">Predict My Chances</span>
+                        <ArrowRight className="h-5 w-5" />
+                      </motion.span>
                     </Button>
                   </motion.div>
                 </form>
@@ -388,24 +462,32 @@ export default function Home() {
             className="mt-8 text-center text-gray-500 text-sm"
             variants={itemVariants}
           >
-            <div className="bg-yellow-100 text-yellow-800 p-3 rounded-md mb-4 inline-block max-w-2xl">
+            <motion.div
+              className="bg-yellow-100 text-yellow-800 p-3 rounded-md mb-4 inline-block max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+            >
               <p className="text-sm font-medium">
                 <strong>Disclaimer:</strong> These predictions are based on
                 historical data and trends and are not guaranteed outcomes. Use
                 this tool as a reference only. Actual results may vary due to
                 multiple factors.
               </p>
-            </div>
+            </motion.div>
 
             <p>
               TNEA 2025 Cutoff Prediction • Based on historical data and trends
-              ( 2021 - 2024)
+              (2021 - 2024)
             </p>
           </motion.div>
 
           <motion.div
             className="mt-4 text-center text-gray-800 text-xs"
             variants={itemVariants}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
           >
             <p>
               Developed with 💡✨ by
@@ -413,6 +495,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/nagadeepak61"
                 target="_blank"
                 className="text-blue-600 font-semibold"
+                rel="noreferrer"
               >
                 {" "}
                 Naga Deepak{" "}
@@ -425,6 +508,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/premnath018"
                 target="_blank"
                 className="text-blue-600 font-semibold"
+                rel="noreferrer"
               >
                 {" "}
                 Premnath
