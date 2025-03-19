@@ -417,7 +417,9 @@ export default function Home() {
                     <Input
                       id="cutoff"
                       type="number"
-                      step="0.01"
+                      step="0.5"
+                      min="77"
+                      max="200"
                       value={formData.your_cutoff}
                       onChange={(e) =>
                         handleChange("your_cutoff", e.target.value)

@@ -43,17 +43,37 @@ type PredictionResult = {
   college_suggestions: {
     college_name: string | null;
     department: string | null;
-    cutoff_bc: number | null;
+    cutoff_oc?: number | null; // Optional fields for all castes
+    cutoff_bc?: number | null;
+    cutoff_sc?: number | null;
+    cutoff_mbc?: number | null;
+    cutoff_bcm?: number | null;
+    cutoff_st?: number | null;
+    cutoff_sca?: number | null;
+
+    // Add other caste-specific cutoffs if needed
   }[];
   department_suggestions: {
     college_name: string | null;
     department: string | null;
-    cutoff_bc: number | null;
+    cutoff_oc?: number | null; // Optional fields for all castes
+    cutoff_bc?: number | null;
+    cutoff_sc?: number | null;
+    cutoff_mbc?: number | null;
+    cutoff_bcm?: number | null;
+    cutoff_st?: number | null;
+    cutoff_sca?: number | null;
   }[];
   top_colleges: {
     college_name: string | null;
     department: string | null;
-    cutoff_bc: number | null;
+    cutoff_oc?: number | null; // Optional fields for all castes
+    cutoff_bc?: number | null;
+    cutoff_sc?: number | null;
+    cutoff_mbc?: number | null;
+    cutoff_bcm?: number | null;
+    cutoff_st?: number | null;
+    cutoff_sca?: number | null;
   }[];
   worth_assessment: {
     college_avg_cutoff: number;
@@ -96,7 +116,7 @@ export default function ResultsPage() {
     const fetchPrediction = async () => {
       const college = searchParams.get("college");
       const department = searchParams.get("department");
-      const caste = searchParams.get("caste");
+      const caste = searchParams.get("caste")?.toLowerCase(); // Normalize to lowercase
       const your_cutoff = searchParams.get("your_cutoff");
 
       if (!college || !department || !caste || !your_cutoff) {
@@ -136,19 +156,39 @@ export default function ResultsPage() {
           );
         }
 
-        // Sanitize NaN to null and parse response
         const rawText = await response.text();
         const sanitizedText = rawText.replace(/NaN/g, "null");
-        let data: PredictionResult = JSON.parse(sanitizedText);
+        const data = JSON.parse(sanitizedText);
 
-        // Filter out rows with null values
+        // Map the correct cutoff based on caste
+        const cutoffField = `cutoff_${caste}`; // e.g., "cutoff_bc" for "bc"
+
+        const normalizeCutoff = (array: any[]) =>
+          array.map((item) => ({
+            ...item,
+            cutoff: item[cutoffField], // Dynamically select the cutoff
+          }));
+
+        data.college_suggestions = normalizeCutoff(data.college_suggestions);
+        data.department_suggestions = normalizeCutoff(
+          data.department_suggestions
+        );
+        data.top_colleges = normalizeCutoff(data.top_colleges);
+
+        // Filter out rows with null or undefined values
         const filterRows = (array: any[]) =>
-          array.filter(
-            (item) =>
-              item.college_name != null &&
-              item.department != null &&
-              item.cutoff_bc != null
-          );
+          array.filter((item) => {
+            const isValidCollegeName =
+              typeof item.college_name === "string" &&
+              item.college_name !== null;
+            const isValidDepartment =
+              typeof item.department === "string" && item.department !== null;
+            const isValidCutoff =
+              typeof item.cutoff === "number" &&
+              !isNaN(item.cutoff) &&
+              item.cutoff !== null;
+            return isValidCollegeName && isValidDepartment && isValidCutoff;
+          });
 
         data.college_suggestions = filterRows(data.college_suggestions);
         data.department_suggestions = filterRows(data.department_suggestions);
@@ -170,7 +210,6 @@ export default function ResultsPage() {
     };
     fetchPrediction();
   }, [searchParams, router]);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -525,12 +564,16 @@ export default function ResultsPage() {
                                           y: 0,
                                           transition: { delay: index * 0.1 },
                                         }}
+                                        whileHover={{
+                                          y: -5,
+                                          transition: { duration: 0.2 },
+                                        }}
                                       >
                                         <CollegeCard
                                           rank={index + 1}
                                           collegeName={college.college_name!}
                                           departmentName={college.department!}
-                                          cutoff={college.cutoff_bc!}
+                                          cutoff={college.cutoff!} // Use the normalized cutoff
                                           isHighlighted={index === 0}
                                         />
                                       </motion.div>
@@ -573,12 +616,16 @@ export default function ResultsPage() {
                                           y: 0,
                                           transition: { delay: index * 0.1 },
                                         }}
+                                        whileHover={{
+                                          y: -5,
+                                          transition: { duration: 0.2 },
+                                        }}
                                       >
                                         <DepartmentCard
                                           rank={index + 1}
                                           collegeName={dept.college_name!}
                                           departmentName={dept.department!}
-                                          cutoff={dept.cutoff_bc!}
+                                          cutoff={dept.cutoff!} // Use the normalized cutoff
                                           isHighlighted={index === 0}
                                         />
                                       </motion.div>
@@ -610,9 +657,8 @@ export default function ResultsPage() {
                             <CardContent>
                               <div className="space-y-6">
                                 {predictionResult.top_colleges.length > 0 ? (
-                                  predictionResult.top_colleges
-                                    .slice(0, 3)
-                                    .map((college, index) => (
+                                  predictionResult.top_colleges.map(
+                                    (college, index) => (
                                       <motion.div
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}
@@ -621,17 +667,22 @@ export default function ResultsPage() {
                                           y: 0,
                                           transition: { delay: index * 0.1 },
                                         }}
+                                        whileHover={{
+                                          y: -5,
+                                          transition: { duration: 0.2 },
+                                        }}
                                       >
                                         <CollegeCard
                                           rank={index + 1}
                                           collegeName={college.college_name!}
                                           departmentName={college.department!}
-                                          cutoff={college.cutoff_bc!}
+                                          cutoff={college.cutoff!} // Use the normalized cutoff
                                           isHighlighted={index === 0}
                                           isTop={true}
                                         />
                                       </motion.div>
-                                    ))
+                                    )
+                                  )
                                 ) : (
                                   <p className="text-gray-500">
                                     No top colleges available.
@@ -733,7 +784,7 @@ export default function ResultsPage() {
                                     rank={index + 1}
                                     collegeName={college.college_name!}
                                     departmentName={college.department!}
-                                    cutoff={college.cutoff_bc!}
+                                    cutoff={college.cutoff!} // Use the normalized cutoff
                                     isHighlighted={index === 0}
                                   />
                                 </motion.div>
@@ -785,7 +836,7 @@ export default function ResultsPage() {
                                     rank={index + 1}
                                     collegeName={dept.college_name!}
                                     departmentName={dept.department!}
-                                    cutoff={dept.cutoff_bc!}
+                                    cutoff={dept.cutoff!} // Use the normalized cutoff
                                     isHighlighted={index === 0}
                                   />
                                 </motion.div>
@@ -816,9 +867,8 @@ export default function ResultsPage() {
                       <CardContent>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {predictionResult.top_colleges.length > 0 ? (
-                            predictionResult.top_colleges
-                              .slice(0, 3)
-                              .map((college, index) => (
+                            predictionResult.top_colleges.map(
+                              (college, index) => (
                                 <motion.div
                                   key={index}
                                   initial={{ opacity: 0, y: 20 }}
@@ -836,12 +886,13 @@ export default function ResultsPage() {
                                     rank={index + 1}
                                     collegeName={college.college_name!}
                                     departmentName={college.department!}
-                                    cutoff={college.cutoff_bc!}
+                                    cutoff={college.cutoff!} // Use the normalized cutoff
                                     isHighlighted={index === 0}
                                     isTop={true}
                                   />
                                 </motion.div>
-                              ))
+                              )
+                            )
                           ) : (
                             <p className="text-gray-500">
                               No top colleges available.
