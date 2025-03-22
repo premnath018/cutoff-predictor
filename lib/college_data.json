@@ -253,10 +253,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "1124 - Sams College of Engineering and Technology - Tiruvallur (Dist)": {
-    "code": 1124,
-    "departments": []
-  },
   "1125 - PMR Engineering College -Maduravoyil , Chennai [Tiruvallur (Dist)]": {
     "code": 1125,
     "departments": [
@@ -300,10 +296,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "1131 - Vel Tech -Avadi, Chennai [Tiruvallur (Dist)]": {
-    "code": 1131,
-    "departments": []
-  },
   "1133 - Annai Veilankanni's College of Engineering - Kancheepuram (Dist)": {
     "code": 1133,
     "departments": [
@@ -325,10 +317,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "1139 - Siva Institute of Frontier Technology Thiruvallur": {
-    "code": 1139,
-    "departments": []
-  },
   "1140 - Jeppiaar Institute of Technology Kancheepuram": {
     "code": 1140,
     "departments": [
@@ -339,10 +327,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "1141 - R.V.S. Padmavathy College of Engineering & Technology, Thiruvallur": {
-    "code": 1141,
-    "departments": []
   },
   "1149 - St.Joseph's Institute of Technology Kancheepuram": {
     "code": 1149,
@@ -356,10 +340,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "1201 - Arignar Anna Institute of Science and Technology - SriPerumbudur,Chennai [Kancheepuram(Dist)]": {
-    "code": 1201,
-    "departments": []
-  },
   "1202 - DMI College of Engineering -Sriperumbudur, Chennai [Kancheepuram(Dist)]": {
     "code": 1202,
     "departments": [
@@ -371,14 +351,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "1205 - Lord Venkateshwara Engineering College - Puliyambakkam,\u00c3\u201a Kancheepuram (Dist)": {
-    "code": 1205,
-    "departments": []
-  },
-  "1206 - Maamallan Institute of Technology - Sriperumbudur,Kancheepuram(Dist)": {
-    "code": 1206,
-    "departments": []
   },
   "1207 - Kings Engineering College - Sriperumbudur, Kancheepuram(Dist)": {
     "code": 1207,
@@ -392,10 +364,6 @@
       "MECHANICAL ENGINEERING",
       "ROBOTICS AND AUTOMATION"
     ]
-  },
-  "1208 - Kanchi Pallavan Engineering College - Kancheepuram": {
-    "code": 1208,
-    "departments": []
   },
   "1209 - Pallavan College of Engineering - Kancheepuram": {
     "code": 1209,
@@ -452,14 +420,6 @@
       "MECHANICAL ENGINEERING",
       "PETROLEUM ENGINEERING"
     ]
-  },
-  "1213 - S.K.R Engineering College -Poonmallee, Chennai": {
-    "code": 1213,
-    "departments": []
-  },
-  "1214 - Sakthi Mariamman Engineering College - Thandalam, Chennai [Kancheepuram(Dist)]": {
-    "code": 1214,
-    "departments": []
   },
   "1216 - Saveetha Engineering College - Thandalam, Chennai [Kancheepuram(Dist)]": {
     "code": 1216,
@@ -607,7 +567,7 @@
   },
   "1231 - Panimalar Institute of Technology - Poonmallee, Chennai": {
     "code": 1231,
-    "departments": []
+    "departments": ["Chennai [Tiruvallur (Dist)]\""]
   },
   "1232 - ARM College of Engineering and Technology - Chengalpet,Kancheepuram (Dist)": {
     "code": 1232,
@@ -629,10 +589,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "1234 - Indira Gandhi College of Engineering and Technology for Women - Chengalpattu [Kanchipuram(Dist)]": {
-    "code": 1234,
-    "departments": []
   },
   "1235 - JEI Mathaajee College of Engineering - Kanchipuram(Dist)": {
     "code": 1235,
@@ -679,10 +635,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "1242 - Sree Sastha College of Engineering -Thiruvallur(Dist)": {
-    "code": 1242,
-    "departments": []
   },
   "1243 - Madha Institute of Engineering and Technology - Kancheepuram(Dist)": {
     "code": 1243,
@@ -815,10 +767,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "1313 - Shree Motilal Kanhaiyalal Fomra Institute of Technology - Thaiyur, Kanchipuram (Dist)": {
-    "code": 1313,
-    "departments": []
-  },
   "1315 - Sri Sivasubramaniya Nadar College of Engineering - Thiruporur, Kanchipuram(Dist)": {
     "code": 1315,
     "departments": [
@@ -886,16 +834,9 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "1320 - S.R.R Engineering College -Padur [Kanchipuram(Dist)]": {
-    "code": 1320,
-    "departments": []
-  },
   "1321 - Central Institute of Plastics Engineering and Technology - Guindy, Chennai": {
     "code": 1321,
-    "departments": [
-      "MANUFACTURING ENGINEERING",
-      "PLASTIC TECHNOLOGY"
-    ]
+    "departments": ["MANUFACTURING ENGINEERING", "PLASTIC TECHNOLOGY"]
   },
   "1322 - Dhanalakshmi Srinivasan College of Engineering and Technology -ECR , Poonjeri,\u00c3\u201a Kancheepuram (Dist)": {
     "code": 1322,
@@ -914,10 +855,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "1323 - A.C.T. College of Engineering and Technology- Maduranthagam (Tk), Kancheepuram (Dist)": {
-    "code": 1323,
-    "departments": []
   },
   "1324 - Sri Sai Ram Institute of Technology - West Tambaram, Chennai [Kanchipuram(Dist)]": {
     "code": 1324,
@@ -952,10 +889,6 @@
       "COMPUTER SCIENCE AND ENGINEERING",
       "ELECTRONICS AND COMMUNICATION ENGINEERING"
     ]
-  },
-  "1334 - Balamani Arunachalam Educational & Charitable Trust's group of inst.- Kancheepuram (Dist)": {
-    "code": 1334,
-    "departments": []
   },
   "1335 - Sri Krishna Institute of Technology- Kancheepuram (Dist)": {
     "code": 1335,
@@ -1017,10 +950,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "1406 - Dr. Paul's Engineering College - Villupuram": {
-    "code": 1406,
-    "departments": []
   },
   "1407 - G.K.M. College of Engineering and Technology - Perungalathur,Chennai [Kanchipuram(Dist)]": {
     "code": 1407,
@@ -1122,9 +1051,7 @@
   },
   "1415 - T.S.M. Jain College of Technology- Villupuram Dist": {
     "code": 1415,
-    "departments": [
-      "CIVIL ENGINEERING"
-    ]
+    "departments": ["CIVIL ENGINEERING"]
   },
   "1416 - Sakthi Engineering College - Thiruninravur,Poonamallee ,Chennai": {
     "code": 1416,
@@ -1137,14 +1064,6 @@
       "PHARMACEUTICAL TECHNOLOGY",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "1417 - Shri andal Alagar College of Engineering - Kanchipuram": {
-    "code": 1417,
-    "departments": []
-  },
-  "1418 - Sri Lakshmi Ammal Engineering College - Selaiyur,Tambaram, Chennai [Kanchipuram(Dist)]": {
-    "code": 1418,
-    "departments": []
   },
   "1419 - Sri Sairam Engineering College - West Tambaram, Chennai [Kanchipuram(Dist)]": {
     "code": 1419,
@@ -1296,10 +1215,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "1433 - Sri Aravindar Engineering College - Villupuram": {
-    "code": 1433,
-    "departments": []
-  },
   "1434 - Surya College of Engineering and Technology - Villupuram": {
     "code": 1434,
     "departments": [
@@ -1312,10 +1227,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "1435 - Balaji College of Engineering and Technology - Thandalam, Chennai [Kanchipuram(Dist)]": {
-    "code": 1435,
-    "departments": []
   },
   "1436 - A.R. Engineering College - Villupuram": {
     "code": 1436,
@@ -1346,14 +1257,6 @@
       "COMPUTER SCIENCE AND ENGINEERING",
       "ELECTRONICS AND COMMUNICATION ENGINEERING"
     ]
-  },
-  "1439 - S.R.I College of Engineering and Technology- Thiruvannamalai": {
-    "code": 1439,
-    "departments": []
-  },
-  "1440 - Jaya Suriya Engineering College- Thiruvallur Dist": {
-    "code": 1440,
-    "departments": []
   },
   "1441 - A K T Memorial College of Engineering and Technology - Villupuram (Dist)": {
     "code": 1441,
@@ -1394,10 +1297,6 @@
       "ELECTRONICS AND COMMUNICATION ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "1447 - Jawahar Engineering College, Kaverirangan": {
-    "code": 1447,
-    "departments": []
   },
   "1449 - Saraswathy College of Engineering & Technology Villupuram": {
     "code": 1449,
@@ -1487,10 +1386,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "1506 - G.G.R. College of Engineering- Vellore Dt": {
-    "code": 1506,
-    "departments": []
-  },
   "1507 - Ganadipathy Tulsi's Engineering College - Vellore": {
     "code": 1507,
     "departments": [
@@ -1503,10 +1398,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "1508 - Kamban Engineering College - Tiruvannamalai": {
-    "code": 1508,
-    "departments": []
   },
   "1509 - Meenakshi College of Engineering - K.K. Nagar, Chennai": {
     "code": 1509,
@@ -1536,9 +1427,7 @@
   },
   "1511 - Ranippettai Engineering College - Vellore": {
     "code": 1511,
-    "departments": [
-      "COMPUTER SCIENCE AND ENGINEERING"
-    ]
+    "departments": ["COMPUTER SCIENCE AND ENGINEERING"]
   },
   "1512 - S.K.P Engineering College - Tiruvannamalai": {
     "code": 1512,
@@ -1563,14 +1452,6 @@
       "ELECTRONICS AND COMMUNICATION ENGINEERING",
       "INFORMATION TECHNOLOGY"
     ]
-  },
-  "1514 - Sri Nandhanam College of Engineering and Technology - Vellore": {
-    "code": 1514,
-    "departments": []
-  },
-  "1515 - Saraswathi Velu College of Engineering - Vellore": {
-    "code": 1515,
-    "departments": []
   },
   "1516 - Thanthai Periyar Govt. Institute of Technology - Vellore": {
     "code": 1516,
@@ -1632,10 +1513,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "1521 - Shri Sapthagiri Institute of Technology - Vellore(Dist)": {
-    "code": 1521,
-    "departments": []
-  },
   "1523 - Global Institute of Engineering and Technology - Vellore(Dist)": {
     "code": 1523,
     "departments": [
@@ -1675,14 +1552,6 @@
       "COMPUTER SCIENCE AND ENGINEERING",
       "ELECTRONICS AND COMMUNICATION ENGINEERING"
     ]
-  },
-  "1528 - KRS College of Engineering - Thiruvannamalai(Dist)": {
-    "code": 1528,
-    "departments": []
-  },
-  "1529 - Oxford College of Engineering - Thiruvannamalai(Dist)": {
-    "code": 1529,
-    "departments": []
   },
   "1605 - Idhaya Engineering College for Women - Villupuram": {
     "code": 1605,
@@ -1780,10 +1649,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "2314 - Muthayammal Technical Campus Kakkaveri, Namakkal Dist": {
-    "code": 2314,
-    "departments": []
-  },
   "2327 - N.S.N. College of Engineering and Technology - Karur (Dist)": {
     "code": 2327,
     "departments": [
@@ -1795,10 +1660,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "2328 - K S R Institute for Engineering and Technology, Namakkal": {
-    "code": 2328,
-    "departments": []
   },
   "2329 - Rathinam Technical Campus, Coimbatore": {
     "code": 2329,
@@ -1901,10 +1762,7 @@
   },
   "2350 - Jairupaa College of Engineering - Tiruppur (Dist)": {
     "code": 2350,
-    "departments": [
-      "CIVIL ENGINEERING",
-      "COMPUTER SCIENCE AND ENGINEERING"
-    ]
+    "departments": ["CIVIL ENGINEERING", "COMPUTER SCIENCE AND ENGINEERING"]
   },
   "2354 - Pollachi Institute of Engineering and Technology - Coimbatore (Dist)": {
     "code": 2354,
@@ -1916,10 +1774,6 @@
       "ELECTRICAL AND ELECTRONICS ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "2355 - Cheran College of Engineering - Karur (Dist)": {
-    "code": 2355,
-    "departments": []
   },
   "2356 - Arulmuruga Technical Campus - Karur (Dist)": {
     "code": 2356,
@@ -1942,10 +1796,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "2358 - SCAD Institute of Technology": {
-    "code": 2358,
-    "departments": []
-  },
   "2360 - Suguna College of Engineering - Coimbatore (Dist)": {
     "code": 2360,
     "departments": [
@@ -1957,10 +1807,6 @@
       "MECHANICAL ENGINEERING",
       "MECHATRONICS ENGINEERING"
     ]
-  },
-  "2362 - Hosur Institute of Technology and Science - Krishnagiri (Dist)": {
-    "code": 2362,
-    "departments": []
   },
   "2367 - Arjun College of Technology": {
     "code": 2367,
@@ -2032,10 +1878,6 @@
       "ELECTRICAL AND ELECTRONICS ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "2606 - Jayam College of Engineering and Technology - Dharmapuri": {
-    "code": 2606,
-    "departments": []
   },
   "2607 - K.S. Rangaswamy College of Technology (Autonomous) - Namakkal": {
     "code": 2607,
@@ -2185,10 +2027,6 @@
       "MECHANICAL ENGINEERING",
       "METALLURGICAL ENGINEERING"
     ]
-  },
-  "2616 - Sapthagiri College of Engineering - Dharmapuri": {
-    "code": 2616,
-    "departments": []
   },
   "2617 - Sengunthar Engineering College - Namakkal": {
     "code": 2617,
@@ -2344,10 +2182,6 @@
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
   },
-  "2629 - Sengunthar College of Engineering for Women - Tiruchengode [Namakkal(Dist)]": {
-    "code": 2629,
-    "departments": []
-  },
   "2630 - Chettinad College of Engineering and Technology - Karur": {
     "code": 2630,
     "departments": [
@@ -2358,10 +2192,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "2631 - King College of Technology - Namakkal": {
-    "code": 2631,
-    "departments": []
   },
   "2632 - Mahendra Institute of Technology - Namakkal": {
     "code": 2632,
@@ -2534,10 +2364,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "2649 - Karur College of Engineering- Karur (Dist)": {
-    "code": 2649,
-    "departments": []
-  },
   "2650 - Christ The King Engineering College- Coimbatore (Dist)": {
     "code": 2650,
     "departments": [
@@ -2585,10 +2411,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "2654 - S V S College of Engineering - Coimbatore(Dist)": {
-    "code": 2654,
-    "departments": []
-  },
   "2656 - Erode Builder Educational Trust\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u201e\u00a2s Group of Institutions - Tiruppur (Dist)": {
     "code": 2656,
     "departments": [
@@ -2600,10 +2422,6 @@
       "ELECTRICAL AND ELECTRONICS ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "2657 - Pavai College of Technology - Namakkal(Dist)": {
-    "code": 2657,
-    "departments": []
   },
   "2658 - V S A Educational and Charitable Trust\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u201e\u00a2s group of institutions - Salem(Dist)": {
     "code": 2658,
@@ -2628,30 +2446,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "2660 - Gnanamani College of Engineering, Namakkal": {
-    "code": 2660,
-    "departments": []
-  },
-  "2661 - Vivekanandha College of Technology for women - Namakkal(Dist)": {
-    "code": 2661,
-    "departments": []
-  },
-  "2662 - Dr.Nagarathinam's College of Engineering - Namakkal (Dist)": {
-    "code": 2662,
-    "departments": []
-  },
-  "2664 - Excel College of Engineering and Technology - Namakkal": {
-    "code": 2664,
-    "departments": []
-  },
-  "2665 - Mahendra Institute of Engineering and Technology - Namakkal(Dist)": {
-    "code": 2665,
-    "departments": []
-  },
-  "2666 - The Kavery College of Engineering - Salem(Dist)": {
-    "code": 2666,
-    "departments": []
-  },
   "2673 - Sree Sakthi Engineering College- Coimbatore (Dist)": {
     "code": 2673,
     "departments": [
@@ -2665,10 +2459,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "2682 - Professional Educational Trust-s Group of Institutions- Thiruppur(Dist)": {
-    "code": 2682,
-    "departments": []
   },
   "2683 - Shreenivasa Engineering College- Dharmapuri (Dist)": {
     "code": 2683,
@@ -2865,10 +2655,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "2714 - Maharaja Engineering College - Avinashi [Coimbatore (Dist)]": {
-    "code": 2714,
-    "departments": []
-  },
   "2715 - Nandha Engineering College - Erode": {
     "code": 2715,
     "departments": [
@@ -3057,10 +2843,6 @@
       "MECHATRONICS ENGINEERING"
     ]
   },
-  "2730 - Maharaja Institute of Technology - Coimbatore": {
-    "code": 2730,
-    "departments": []
-  },
   "2731 - R V S College of Engineering and Technology - Coimbatore": {
     "code": 2731,
     "departments": [
@@ -3148,10 +2930,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "2738 - Sasurie Academy of Engineering- Coimbatore [Formerly known as": {
-    "code": 2738,
-    "departments": []
   },
   "2739 - Sri Eashwar Engineering College - Coimbatore": {
     "code": 2739,
@@ -3408,10 +3186,6 @@
       "MECHATRONICS ENGINEERING"
     ]
   },
-  "2765 - Sriguru Institute of Technology- Coimbatore": {
-    "code": 2765,
-    "departments": []
-  },
   "2767 - SRG Engineering College - Namakkal(Dist)": {
     "code": 2767,
     "departments": [
@@ -3462,10 +3236,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "2771 - Dr.Nalini Institute of Engineering and Technology - Coimbatore(Dist)": {
-    "code": 2771,
-    "departments": []
   },
   "2772 - C M S College of Engineering and Technology - Coimbatore(Dist)": {
     "code": 2772,
@@ -3563,10 +3333,6 @@
       "MECHANICAL ENGINEERING (TAMIL MEDIUM)"
     ]
   },
-  "3403 - Mahalakshmi Engineering College, Thiruchirappalli": {
-    "code": 3403,
-    "departments": []
-  },
   "3410 - Krishnasamy College of Engineering and Technology - Cuddalore": {
     "code": 3410,
     "departments": [
@@ -3593,10 +3359,6 @@
       "ROBOTICS AND AUTOMATION"
     ]
   },
-  "3451 - SMR East Coast College of Engineering and Technology-Somanathapattinam- Thanjavur(Dist)": {
-    "code": 3451,
-    "departments": []
-  },
   "3454 - Sri Ramakrishna College of Engineering - Perambalur (Dist)": {
     "code": 3454,
     "departments": [
@@ -3622,18 +3384,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "3457 - Dhanalakshmi Srinivasan College of Engineering - Perambalur (Dist)": {
-    "code": 3457,
-    "departments": []
-  },
-  "3458 - Dhanalakshmi Srinivasan Institute of Research and Technology - Perambalur (Dist)": {
-    "code": 3458,
-    "departments": []
-  },
-  "3459 - Dhanalakshmi Srinivasan Institute of Technology - Thiruchirappalli (Dist)": {
-    "code": 3459,
-    "departments": []
-  },
   "3460 - Sureya College of Engineering - Thiruchirappalli (Dist)": {
     "code": 3460,
     "departments": [
@@ -3641,10 +3391,6 @@
       "ELECTRICAL AND ELECTRONICS ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "3462 - Ariyalur Engineering College": {
-    "code": 3462,
-    "departments": []
   },
   "3464 - Government College of Engineering - Thanjavur": {
     "code": 3464,
@@ -3708,10 +3454,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "3781 - K.K.C College of Engineering and Technology- Ariyalur (Dist)": {
-    "code": 3781,
-    "departments": []
-  },
   "3782 - OAS Institute of Technology and Management, Thiruchirappalli": {
     "code": 3782,
     "departments": [
@@ -3761,10 +3503,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "3802 - Shri Angala Amman College of Engineering and Technology - Trichy": {
-    "code": 3802,
-    "departments": []
   },
   "3803 - Anjalai Ammal Mahalingam Engineering College - Thiruvarur": {
     "code": 3803,
@@ -3838,14 +3576,6 @@
       "MECHANICAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)"
     ]
-  },
-  "3808 - Jayaram College of Engineering and Technology - Trichy": {
-    "code": 3808,
-    "departments": []
-  },
-  "3809 - Kurinji College of Engineering and Technology - Trichy": {
-    "code": 3809,
-    "departments": []
   },
   "3810 - Mam College of Engineering - Trichy": {
     "code": 3810,
@@ -3984,10 +3714,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "3823 - Srinivasan Engineering College - Perambalur": {
-    "code": 3823,
-    "departments": []
-  },
   "3825 - St.Joseph's College of Engineering and Technology - Thanjavur": {
     "code": 3825,
     "departments": [
@@ -4121,10 +3847,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "3847 - Roever College of Engineering and Technology -Perambalur(Dist)": {
-    "code": 3847,
-    "departments": []
-  },
   "3848 - Vandayar Engineering College -Thanjavur(Dist)": {
     "code": 3848,
     "departments": [
@@ -4147,9 +3869,7 @@
   },
   "3850 - Vetri Vinayaha College of Engineering and Technology -Thiruchirappalli(Dist)": {
     "code": 3850,
-    "departments": [
-      "INFORMATION TECHNOLOGY"
-    ]
+    "departments": ["INFORMATION TECHNOLOGY"]
   },
   "3852 - Sri Bharathi Engineering College for women -Pudukkottai(Dist)": {
     "code": 3852,
@@ -4194,10 +3914,6 @@
       "ELECTRICAL AND ELECTRONICS ENGINEERING",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "3859 - Sembodai Rukmani Varatharajan Engineering College -Nagapattinam(Dist)": {
-    "code": 3859,
-    "departments": []
   },
   "3860 - St.Anne\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u201e\u00a2s College of Engineering and Technology -Cuddalore(Dist)": {
     "code": 3860,
@@ -4263,10 +3979,6 @@
       "AGRICULTURAL ENGINEERING",
       "COMPUTER SCIENCE AND ENGINEERING"
     ]
-  },
-  "3925 - M.A.R College of Engineering and Technology - Pudukotai": {
-    "code": 3925,
-    "departments": []
   },
   "3926 - Chendhuran College of Engineering and Technology - Pudukottai": {
     "code": 3926,
@@ -4535,10 +4247,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "4937 - A.R. College of Engineering and Technology - Thirunelveli Dist": {
-    "code": 4937,
-    "departments": []
-  },
   "4938 - Sivaji College of Engineering and Technology- Kanniyakumari": {
     "code": 4938,
     "departments": [
@@ -4578,10 +4286,6 @@
       "INFORMATION TECHNOLOGY"
     ]
   },
-  "4945 - Vins Christian Women'S College of Engineering -Kanniyakumari(Dist)": {
-    "code": 4945,
-    "departments": []
-  },
   "4946 - DMI Engineering College -Kanniyakumari(Dist)": {
     "code": 4946,
     "departments": [
@@ -4592,10 +4296,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "4948 - Rajas International Institute of Technology for women -Kanniyakumari(Dist)": {
-    "code": 4948,
-    "departments": []
   },
   "4949 - PSN Institute of Technology and Science -Tirunelveli(Dist)": {
     "code": 4949,
@@ -4817,14 +4517,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "4972 - Sun College of Engineering and Technology - Kanyakumari": {
-    "code": 4972,
-    "departments": []
-  },
-  "4973 - The Rajaas Engineering College(Formerly The Indian Engg College) - Vadakangulam,Tirunelveli (Dist)": {
-    "code": 4973,
-    "departments": []
-  },
   "4974 - Government College of Engineering - Thirunelveli": {
     "code": 4974,
     "departments": [
@@ -4946,10 +4638,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "4987 - James College of Engineering and Technology - Kanyakumari": {
-    "code": 4987,
-    "departments": []
-  },
   "4989 - PSN Engineering College - Palayamkottai,Tirunelveli (Dist)": {
     "code": 4989,
     "departments": [
@@ -4959,10 +4647,6 @@
       "ELECTRONICS AND COMMUNICATION ENGINEERING",
       "INFORMATION TECHNOLOGY"
     ]
-  },
-  "4991 - Kalasalingam Institute of Technology - Virudhunagar (Dist)": {
-    "code": 4991,
-    "departments": []
   },
   "4992 - Bethlahem Institute of Engineering - Kanyakumari": {
     "code": 4992,
@@ -5023,15 +4707,9 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "4997 - Infant Jesus College of Engineering and Technology - Thoothukudi": {
-    "code": 4997,
-    "departments": []
-  },
   "4998 - Mahakavi Bharathiyar College of Engineering and Technology - Tirunelveli (Dist)": {
     "code": 4998,
-    "departments": [
-      "COMPUTER SCIENCE AND ENGINEERING"
-    ]
+    "departments": ["COMPUTER SCIENCE AND ENGINEERING"]
   },
   "4999 - Annai Vailankanni College of Engineering - Kanyakumari": {
     "code": 4999,
@@ -5102,9 +4780,7 @@
   },
   "5012 - Central Electrochemical Research Institute(CSIR) - Karaikudi": {
     "code": 5012,
-    "departments": [
-      "CHEMICAL AND ELECTRO CHEMICAL ENGINEERING (SS)"
-    ]
+    "departments": ["CHEMICAL AND ELECTRO CHEMICAL ENGINEERING (SS)"]
   },
   "5017 - Anna University of Technology Madurai- Ramanathapuram Campus": {
     "code": 5017,
@@ -5200,10 +4876,6 @@
       "MECHANICAL ENGINEERING"
     ]
   },
-  "5720 - Sri Subramanya College of Engineering and Technology - Dindigul": {
-    "code": 5720,
-    "departments": []
-  },
   "5832 - N.P.R. College of Engineering and Technology - Dindigul (Dist)": {
     "code": 5832,
     "departments": [
@@ -5286,10 +4958,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "5903 - K.L.N. College of Information Technology - Sivagangai(Dist)": {
-    "code": 5903,
-    "departments": []
   },
   "5904 - K.L.N. College of Engineering - Sivagangai(Dist)": {
     "code": 5904,
@@ -5427,10 +5095,6 @@
       "INFORMATION TECHNOLOGY",
       "MECHANICAL ENGINEERING"
     ]
-  },
-  "5922 - Vickram College of Engineering - Madurai": {
-    "code": 5922,
-    "departments": []
   },
   "5924 - Ganapathy Chettiar College of Engineering and Technology - Paramakudi,Ramanathapuram (Dist)": {
     "code": 5924,
