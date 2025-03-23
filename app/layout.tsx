@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" }, // Default favicon
+      { url: "/favicon.ico" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
@@ -39,11 +39,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense Script */}
+        {/* Meta tag for AdSense verification */}
+        <meta name="google-adsense-account" content="ca-pub-7816813354770495" />
+        {/* Optional: Google AdSense Script (if you still want it for ads later) */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7816813354770495"
-          strategy="afterInteractive"
           crossOrigin="anonymous"
         />
       </head>
