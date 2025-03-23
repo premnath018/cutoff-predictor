@@ -35,6 +35,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import GoogleAd from "@/components/google-ad";
 
 type PredictionResult = {
   predicted_cutoff: number;
@@ -343,6 +344,20 @@ export default function ResultsPage() {
             selectedCollege={predictionResult.selected_college}
             selectedDepartment={predictionResult.selected_department}
             caste={searchParams.get("caste") || "BC"}
+          />
+        </motion.div>
+
+        {/* Top Ad Placement */}
+        <motion.div
+          className="my-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <GoogleAd
+            adSlot="1234567890"
+            adFormat="horizontal"
+            className="mx-auto max-w-full"
           />
         </motion.div>
 
@@ -947,6 +962,20 @@ export default function ResultsPage() {
               </Button>
             </motion.div>
           </div>
+        </motion.div>
+
+        {/* Bottom Ad Placement */}
+        <motion.div
+          className="my-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+        >
+          <GoogleAd
+            adSlot="3456789012"
+            adFormat="horizontal"
+            className="mx-auto max-w-full"
+          />
         </motion.div>
 
         <motion.div

@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import collegeData from "@/lib/college_data.json";
 import ServiceAgreement from "@/components/service-agreement";
+import GoogleAd from "@/components/google-ad";
 
 // Combobox component with full-width styling
 function Combobox({
@@ -291,6 +292,19 @@ export default function Home() {
           </motion.div>
 
           <motion.div
+            className="mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <GoogleAd
+              adSlot="1234567890"
+              adFormat="horizontal"
+              className="mx-auto max-w-full"
+            />
+          </motion.div>
+
+          <motion.div
             className="relative mb-16"
             variants={itemVariants}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -458,6 +472,20 @@ export default function Home() {
                 </form>
               </CardContent>
             </Card>
+          </motion.div>
+
+          {/* Bottom Ad Placement */}
+          <motion.div
+            className="my-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <GoogleAd
+              adSlot="0987654321"
+              adFormat="rectangle"
+              className="mx-auto"
+            />
           </motion.div>
 
           <motion.div

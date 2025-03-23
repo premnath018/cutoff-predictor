@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google AdSense Script */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7816813354770495"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
